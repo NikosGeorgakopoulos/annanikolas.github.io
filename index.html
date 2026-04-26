@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Wedding</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="script">Our Wedding Day</div>
+
+    <h1>NIKOLAS + ANNA</h1>
+
+    <div class="subtext">SATURDAY, SEPTEMBER 26, 2026 • Spata, Athens</div>
+        <div class="subtext" id="countdown">752 DAYS TO GO</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Registry</a>
+        <a href="#">Photos</a>
+        <a href="#">Q + A</a>
+        <a href="#travel">Πως να έρθετε</a>
+        <a href="#">Dress Code</a>
+        <a href="#rsvp">RSVP</a>
+    </nav>
+
+    <div class="hero-container">
+        <img src="assets/images/hero.png" alt="Couple" class="hero-img">
+    </div>
+    <div class="details">
+        <div>
+            <h2>SEPTEMBER<br>26, 2026</h2>
+        </div>
+
+        <div class="divider"></div>
+
+        <div>
+            <h2>SPATA<br>ATHENS</h2>
+        </div>
+    </div>
+
+    <button id="rsvpBtn">RSVP</button>
+</div>
+
+<section class="travel-section" id="travel">
+    <h2 class="section-title">Πως να έρθετε</h2>
+    <p class="section-subtitle">Οδηγιες για τις τοποθεσιες του Γαμου</p>
+
+    <div class="travel-destinations">
+
+        <!-- Church -->
+        <div class="destination">
+            <img src="assets/images/church.jpg" alt="Church Location" class="destination-img">
+            <h3>Εκκλησια</h3>
+            <p>
+                <a href="https://maps.app.goo.gl/nRK66Pip4fWARPc27" target="_blank" rel="noopener noreferrer">
+                    Ιερός Ναός Αγίας Δυνάμεως, Μητροπόλεως 15-17, Αθήνα 10557
+                </a>
+            </p>
+            <div class="qr-code">
+                <img src="assets/qrcodes/church-qr.png" alt="Church QR Code">
+                <p>Scan for directions</p>
+            </div>
+        </div>
+
+        <!-- Event -->
+        <div class="destination">
+            <img src="assets/images/event.jpg" alt="Event Location" class="destination-img">
+            <h3>Κτημα εκδηλωσης</h3>
+            <p>
+                <a href="https://maps.app.goo.gl/YAg66Pqd9nAz5nvk9" target="_blank" rel="noopener noreferrer">
+                    Κτήμα Ποταμίδα, Ρεματιάς, Πύριζα Γυαλού, Παλλήνη 19004
+                </a>    
+            </p>
+            <div class="qr-code">
+                <img src="assets/qrcodes/event-qr.png" alt="Event QR Code">
+                <p>Scan for directions</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="rsvp-section" id="rsvp">
+    <h2 class="section-title">RSVP</h2>
+    <p class="section-subtitle">Παρακαλούμε στειλτε μας την απαντηση σας μεχρι τις 10 Αυγούστου 2026</p>
+
+    <form id="rsvpForm" class="rsvp-form">
+
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Πλήρες Όνομα" required>
+        </div>
+    
+        <div class="form-group">
+            <select name="attendance" id="attendance" required>
+                <option value="">Θα παρευρεθείτε;</option>
+                <option value="yes">Θα παραστώ με χαρά</option>
+                <option value="no">Δυστυχώς δεν θα τα καταφερω</option>
+            </select>
+        </div>
+    
+        <!-- Appears only if attending -->
+        <div id="attendingFields" style="display: none;">
+    
+            <div class="form-group">
+                <label>Plus One;</label>
+                <select id="plusOne">
+                    <option value="">Θα εχετε plus one;</option>
+                    <option value="yes">Ναι</option>
+                    <option value="no">Όχι</option>
+                </select>
+            </div>
+    
+            <div class="form-group" id="plusOneNameGroup" style="display: none;">
+                <input type="text" id="plusOneName" placeholder="Όνομα Plus One">
+            </div>
+    
+            <div class="form-group">
+                <label>Παιδιά</label>
+                <select id="kids">
+                    <option value="">Θα φέρετε παιδιά;</option>
+                    <option value="yes">Ναι</option>
+                    <option value="no">Όχι</option>
+                </select>
+            </div>
+    
+            <div class="form-group" id="kidsNumberGroup" style="display: none;">
+                <input type="number" id="kidsNumber" placeholder="Number of Kids">
+            </div>
+    
+        </div>
+    
+        <button type="submit" class="rsvp-button">Send RSVP</button>
+    
+        <p id="formMessage" class="form-message"></p>
+    
+    </form>
+</section>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
