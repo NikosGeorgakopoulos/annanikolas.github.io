@@ -2,14 +2,16 @@
 
 @font-face {
     font-family: 'Miama Regular';
-    src: url('../assets/fonts/Miama.otf') format('truetype');
+    src: url('../assets/fonts/Miama.otf');
     font-weight: 400;
+    color: #b96a36;
 }
 
 @font-face {
     font-family: 'Caudex Regular';
-    src: url('../assets/fonts/Caudex-Regular.ttf') format('truetype');
+    src: url('../assets/fonts/Caudex-Regular.ttf');
     font-weight: 600;
+    color: #af8265;
 }
 
 
@@ -53,17 +55,18 @@ body::before {
 
 /* Typography */
 .script {
-    font-family: 'Caudex Regular', cursive;
+    font-family: 'Caudex Regular';
     font-size: 28px;
     color: #555;
     margin-bottom: 10px;
 }
 
 h1 {
-    font-family: 'Miama Regular', serif;
+    font-family: 'Miama Regular';
     letter-spacing: 4px;
     font-size: 70px;
     margin-bottom: 10px;
+    color: #b96a36;
 }
 
 .subtext {
