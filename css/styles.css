@@ -1,58 +1,24 @@
 /*fonts */
 
-/* @font-face {
-    font-family: 'Blacker Sans Pro Variable GX';
-    src: url('../assets/fonts/0_BlackerSansProVariableGX.ttf') format('truetype');
+@font-face {
+    font-family: 'Miama Regular';
+    src: url('../assets/fonts/Miama.otf') format('truetype');
     font-weight: 400;
 }
 
 @font-face {
-    font-family: 'Ithaka Regular';
-    src: url('../assets/fonts/ithaka-regular_0.otf') format('truetype');
+    font-family: 'Caudex Regular';
+    src: url('../assets/fonts/Caudex-Regular.ttf') format('truetype');
     font-weight: 600;
 }
 
-@font-face {
-    font-family: 'Nimbus Sans Round Black';
-    src: url('../assets/fonts/Nimbus Sans Round Black.otf') format('truetype');
-    font-weight: 400;
-}
 
-@font-face {
-    font-family: 'Noteworthy';
-    src: url('../assets/fonts/Noteworthy.otf') format('truetype');
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: 'Rolande';
-    src: url('../assets/fonts/Rolande.ttf') format('truetype');
-    font-weight: 400;
-}
-
-@font-face{
-    font-family: 'SofiaSans Black';
-    src: url('../assets/fonts/SofiaSansExtraCondensed-Black.ttf') format('truetype');
-    font-weight: 400;
-}
-
-@font-face{
-    font-family: 'Helvetica';
-    src: url('../assets/fonts/Helvetica.ttf') format('truetype');
-    font-weight: 400;
-}
-
-@font-face{
-    font-family: 'Helvetica bold';
-    src: url('../assets/fonts/Helvetica-Bold.ttf') format('truetype');
-    font-weight: 700;
-} */
 
 
 /* Base */
 body {
     margin: 0;
-    font-family: 'Blacker Sans Pro Variable GX', sans-serif;
+    font-family: 'Caudex Regular', sans-serif;
     color: #333;
     background: #f8f6f4;
     position: relative;
@@ -87,14 +53,14 @@ body::before {
 
 /* Typography */
 .script {
-    font-family: 'Ithaka Regular', cursive;
+    font-family: 'Caudex Regular', cursive;
     font-size: 28px;
     color: #555;
     margin-bottom: 10px;
 }
 
 h1 {
-    font-family: 'Nimbus Sans Round Black', serif;
+    font-family: 'Miama Regular', serif;
     letter-spacing: 4px;
     font-size: 32px;
     margin-bottom: 10px;
@@ -182,7 +148,7 @@ button:hover {
 }
 
 .section-title {
-    font-family: 'Rolande', serif;
+    font-family: 'Caudex Regular', serif;
     letter-spacing: 3px;
     font-size: 24px;
     margin-bottom: 10px;
@@ -209,7 +175,7 @@ textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
-    font-family: 'Noteworthy', sans-serif;
+    font-family: 'Caudex Regular', sans-serif;
     font-size: 14px;
     background: white;
 }
@@ -251,13 +217,13 @@ textarea {
 }
 
 .travel-section .section-title {
-    font-family: 'SofiaSans Black', serif;
+    font-family: 'Caudex Regular', serif;
     font-size: 36px;
     margin-bottom: 10px;
 }
 
 .travel-section .section-subtitle {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Caudex Regular', sans-serif;
     font-size: 16px;
     margin-bottom: 40px;
     color: #555;
@@ -287,13 +253,13 @@ textarea {
 }
 
 .destination h3 {
-    font-family: 'SofiaSans Black', serif;
+    font-family: 'Caudex Regular', serif;
     font-size: 22px;
     margin-bottom: 5px;
 }
 
 .destination p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Caudex Regular', sans-serif;
     font-size: 14px;
     color: #555;
     margin-bottom: 15px;
