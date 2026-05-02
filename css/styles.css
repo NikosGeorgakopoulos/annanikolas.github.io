@@ -18,6 +18,10 @@
 
 
 /* Base */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: 'Caudex Regular', sans-serif;
@@ -83,7 +87,8 @@ nav {
 nav a {
     margin: 0 12px;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 16px;
+    padding: 4px 0;
     color: #777;
 }
 
@@ -217,6 +222,40 @@ textarea {
     padding: 60px 20px;
     background-color: #f8f8f8;
     text-align: center;
+}
+
+.info-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.info-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.info-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.info-card h3 {
+    margin-top: 0;
+    font-family: 'Caudex Regular', serif;
+    font-size: 20px;
+}
+
+.info-card p {
+    margin-bottom: 0;
+    color: #555;
+    font-size: 14px;
 }
 
 .travel-section .section-title {
