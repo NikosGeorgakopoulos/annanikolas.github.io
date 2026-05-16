@@ -258,6 +258,42 @@ textarea {
     font-size: 14px;
 }
 
+#dress-code {
+    background-color: #2E2B27;
+}
+
+#dress-code .section-subtitle {
+    font-size: 17px;
+}
+
+#dress-code .section-title,
+#dress-code .section-subtitle,
+#dress-code .info-card h3,
+#dress-code .info-card p {
+    color: #e8e2da;
+}
+
+#dress-code .info-card {
+    background: #3d3830;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.palette-swatches {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0 auto 30px;
+    max-width: 600px;
+}
+
+.swatch {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 .travel-section .section-title {
     font-family: 'Caudex Regular', serif;
     font-size: 36px;
