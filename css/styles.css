@@ -1,3 +1,36 @@
+.booklet {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.booklet-page {
+    width: 50%;
+    display: block;
+    object-fit: cover;
+}
+
+.upload-btn {
+    display: inline-block;
+    background: #b96a36;
+    color: #fff !important;
+    font-size: 18px;
+    font-family: 'Caudex Regular', serif;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+    margin-bottom: 10px;
+}
+.upload-btn:hover {
+    background: #a05a2a;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+}
 /*fonts */
 
 @font-face {
@@ -26,25 +59,8 @@ body {
     margin: 0;
     font-family: 'Caudex Regular', sans-serif;
     color: #333;
-    background: #f8f6f4;
+    background: #f5f0eb;
     position: relative;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    background-image: url("../assets/images/background.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    opacity: 0.15;   /* controls transparency */
-    z-index: -1;
 }
 
 /* Layout */
@@ -153,6 +169,10 @@ button:hover {
 .rsvp-section {
     margin-top: 80px;
     padding: 40px 20px;
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .section-title {
@@ -186,6 +206,7 @@ textarea {
     font-family: 'Caudex Regular', sans-serif;
     font-size: 14px;
     background: white;
+    box-sizing: border-box;
 }
 
 textarea {
@@ -201,6 +222,9 @@ textarea {
     letter-spacing: 1px;
     cursor: pointer;
     width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Caudex Regular', sans-serif;
 }
 
 .rsvp-button:hover {
@@ -222,11 +246,29 @@ textarea {
     padding: 60px 20px;
     background-color: #f8f8f8;
     text-align: center;
+    -webkit-mask-image: linear-gradient(to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 15%,
+        rgba(0,0,0,1) 15%,
+        rgba(0,0,0,1) 85%,
+        rgba(0,0,0,0) 85%,
+        rgba(0,0,0,0) 100%
+    );
+    mask-image: linear-gradient(to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 15%,
+        rgba(0,0,0,1) 15%,
+        rgba(0,0,0,1) 85%,
+        rgba(0,0,0,0) 85%,
+        rgba(0,0,0,0) 100%
+    );
 }
 
 .info-section {
     padding: 60px 20px;
     text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .info-content {
@@ -260,6 +302,22 @@ textarea {
 
 #dress-code {
     background-color: #2E2B27;
+    -webkit-mask-image: linear-gradient(to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 15%,
+        rgba(0,0,0,1) 15%,
+        rgba(0,0,0,1) 85%,
+        rgba(0,0,0,0) 85%,
+        rgba(0,0,0,0) 100%
+    );
+    mask-image: linear-gradient(to right,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 15%,
+        rgba(0,0,0,1) 15%,
+        rgba(0,0,0,1) 85%,
+        rgba(0,0,0,0) 85%,
+        rgba(0,0,0,0) 100%
+    );
 }
 
 #dress-code .section-subtitle {
