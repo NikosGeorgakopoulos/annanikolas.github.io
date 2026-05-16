@@ -11,6 +11,8 @@
     width: 50%;
     display: block;
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
 .upload-btn {
@@ -93,6 +95,7 @@ h1 {
     font-size: 12px;
     letter-spacing: 2px;
     color: #777;
+    margin-top: 6px;
 }
 
 /* Navigation */
@@ -106,20 +109,27 @@ nav a {
     font-size: 16px;
     padding: 4px 0;
     color: #777;
+    position: relative;
+}
+
+nav a + a::before {
+    content: "·";
+    position: absolute;
+    left: -14px;
+    color: #ccc;
 }
 
 nav a:hover {
-    color: black;
+    color: #b96a36;
 }
 
 /* Hero Image */
 .hero-container {
-    width: 50%;             /* adjust width as needed */
-    height: 50%;          /* fixed height for cropping */
-    margin: 30px auto;      /* center horizontally */
-    overflow: hidden;       /* hides the top part we shift */
+    width: 70%;
+    margin: 40px auto;
+    overflow: hidden;
     position: relative;
-    border-radius: 8px;     /* optional */
+    border-radius: 12px;
 }
 
 .hero-img {
@@ -148,19 +158,23 @@ nav a:hover {
     background: #ccc;
 }
 
-/* Button */
-button {
-    background: black;
+/* CTA Button */
+#rsvpBtn {
+    background: #b96a36;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 12px;
-    letter-spacing: 1px;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-family: 'Caudex Regular', serif;
+    letter-spacing: 2px;
     cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
 }
 
-button:hover {
-    opacity: 0.8;
+#rsvpBtn:hover {
+    background: #a05a2a;
+    opacity: 1;
 }
 
 
@@ -178,12 +192,13 @@ button:hover {
 .section-title {
     font-family: 'Caudex Regular', serif;
     letter-spacing: 3px;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin-bottom: 12px;
+    color: #333;
 }
 
 .section-subtitle {
-    font-size: 13px;
+    font-size: 15px;
     color: #777;
     margin-bottom: 30px;
 }
@@ -265,7 +280,7 @@ textarea {
 }
 
 .info-section {
-    padding: 60px 20px;
+    padding: 80px 20px;
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
@@ -419,4 +434,12 @@ textarea {
 
 .destination a:hover {
     color: darkgray;        /* optional: slightly darker on hover */
+}
+
+.site-footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 13px;
+    letter-spacing: 1px;
 }
