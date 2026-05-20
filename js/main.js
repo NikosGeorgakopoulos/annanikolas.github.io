@@ -162,3 +162,68 @@ function updateCountdown() {
 
 // Update immediately
 updateCountdown();
+
+const collageFiles = Array.isArray(window.COLLAGE_FILES) ? window.COLLAGE_FILES : [];
+
+const collageStack = document.getElementById("collageStack");
+const collageScrollArea = document.getElementById("collageScrollArea");
+
+if (collageStack && collageScrollArea && collageFiles.length > 0) {
+    const rotationPattern = [-8, 6, -5, 7, -4, 5, -7, 4, -6, 8, -3, 3];
+    const collageCards = collageFiles.map((fileName, index) => {
+        const card = document.createElement("div");
+        const image = document.createElement("img");
+
+        card.className = "collage-card";
+        card.style.zIndex = String(index + 1);
+        card.dataset.rotation = String(rotationPattern[index % rotationPattern.length]);
+
+        image.src = `assets/images/photo collage/${fileName}`;
+        image.alt = "Photo collage memory";
+        image.loading = "lazy";
+
+        card.appendChild(image);
+        collageStack.appendChild(card);
+
+        return card;
+    });
+
+    const perCardScrollVh = 34;
+    collageScrollArea.style.height = `${Math.max(100, collageCards.length * perCardScrollVh + 120)}vh`;
+
+    function updateCollageStack() {
+        const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
+        const passed = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
+        const progress = passed / totalScrollable;
+        const step = progress * (collageCards.length + 0.8);
+
+        collageCards.forEach((card, index) => {
+            const rotation = Number(card.dataset.rotation || "0");
+            const localProgress = step - index;
+
+            if (localProgress <= 0) {
+                card.style.opacity = "0";
+                card.style.transform = `translateY(-130px) scale(0.92) rotate(${rotation * 0.2}deg)`;
+                return;
+            }
+
+            if (localProgress < 1) {
+                const drop = 1 - localProgress;
+                const y = drop * 130 + index * 1.6;
+                const scale = 0.92 + localProgress * 0.08;
+                const currentRotation = rotation * (0.35 + drop * 0.65);
+
+                card.style.opacity = String(Math.min(1, localProgress * 1.4));
+                card.style.transform = `translateY(${y}px) scale(${scale}) rotate(${currentRotation}deg)`;
+                return;
+            }
+
+            card.style.opacity = "1";
+            card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg)`;
+        });
+    }
+
+    window.addEventListener("scroll", updateCollageStack, { passive: true });
+    window.addEventListener("resize", updateCollageStack);
+    updateCollageStack();
+}
