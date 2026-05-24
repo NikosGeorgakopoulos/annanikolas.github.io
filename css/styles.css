@@ -487,3 +487,23 @@ textarea {
     font-size: 13px;
     letter-spacing: 1px;
 }
+
+@media (max-width: 600px) {
+    /* Remove side-fade mask on mobile — it clips content on narrow screens */
+    #dress-code,
+    .travel-section {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    /* Slightly smaller swatches so all 8 fit comfortably */
+    .swatch {
+        width: 54px;
+        height: 54px;
+    }
+
+    .palette-swatches {
+        gap: 12px;
+        padding: 0 16px;
+    }
+}

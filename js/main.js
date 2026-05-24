@@ -223,7 +223,17 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
         });
     }
 
-    window.addEventListener("scroll", updateCollageStack, { passive: true });
+    // With this:
+    let collageRafPending = false;
+    window.addEventListener("scroll", () => {
+        if (!collageRafPending) {
+            collageRafPending = true;
+            requestAnimationFrame(() => {
+                updateCollageStack();
+                collageRafPending = false;
+            });
+        }
+    }, { passive: true });
     window.addEventListener("resize", updateCollageStack);
     updateCollageStack();
 }
