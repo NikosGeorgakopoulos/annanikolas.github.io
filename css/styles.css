@@ -61,7 +61,7 @@ body {
     margin: 0;
     font-family: 'Caudex Regular', sans-serif;
     color: #333;
-    background: #f5f0eb;
+    background: #d4beb3;
     position: relative;
 }
 
@@ -506,4 +506,19 @@ textarea {
         gap: 12px;
         padding: 0 16px;
     }
+}
+
+
+/* Once Upon SVG header */
+.once-upon-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 0;
+}
+
+.once-upon-svg {
+    width: min(95vw, 1100px);
+    height: auto;
+    display: block;
 }

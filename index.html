@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Our Wedding</title>
-
-    <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
+<div class="once-upon-header">
+    <img src="assets/images/once_upon_nobg.svg" alt="Once upon a time..." class="once-upon-svg">
+</div>
+
+<!-- Hero image now before nav -->
+<div class="hero-container">
+    <img src="assets/images/hero.png" alt="Couple" class="hero-img">
+</div>
+
 <div class="container" id="home">
     <h1>Νικολας & Αννα</h1>
-
     <div class="subtext">SATURDAY, SEPTEMBER 26, 2026 • Spata, Athens</div>
-        <div class="subtext" id="countdown">752 DAYS TO GO</div>
+    <div class="subtext" id="countdown">752 DAYS TO GO</div>
+
+
+
     <nav>
         <a href="#home">Home</a>
         <a href="#invite">Πρόσκληση</a>
@@ -27,19 +35,10 @@
         <a href="#rsvp">RSVP</a>
     </nav>
 
-    <div class="hero-container">
-        <img src="assets/images/hero.png" alt="Couple" class="hero-img">
-    </div>
     <div class="details">
-        <div>
-            <h2>SEPTEMBER<br>26, 2026</h2>
-        </div>
-
+        <div><h2>SEPTEMBER<br>26, 2026</h2></div>
         <div class="divider"></div>
-
-        <div>
-            <h2>SPATA<br>ATHENS</h2>
-        </div>
+        <div><h2>SPATA<br>ATHENS</h2></div>
     </div>
 
     <button id="rsvpBtn">RSVP</button>
@@ -53,14 +52,49 @@
     </div>
 </section>
 
-<section class="info-section" id="photo-collage">
-    <h2 class="section-title">Photo Collage</h2>
-    <p class="section-subtitle">Κάντε scroll για να δείτε τις αναμνήσεις να "πέφτουν" η μία πάνω στην άλλη.</p>
-    <div class="collage-scroll-area" id="collageScrollArea">
-        <div class="collage-sticky">
-            <div class="collage-stack" id="collageStack"></div>
+<!-- RSVP moved here, right after Πρόσκληση -->
+<section class="rsvp-section" id="rsvp">
+    <h2 class="section-title">RSVP</h2>
+    <p class="section-subtitle">Παρακαλούμε στειλτε μας την απαντηση σας μεχρι τις 10 Αυγούστου 2026</p>
+
+    <form id="rsvpForm" class="rsvp-form">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Πλήρες Όνομα" required>
         </div>
-    </div>
+        <div class="form-group">
+            <select name="attendance" id="attendance" required>
+                <option value="">Θα παρευρεθείτε;</option>
+                <option value="yes">Θα παραστώ με χαρά</option>
+                <option value="no">Δυστυχώς δεν θα τα καταφερω</option>
+            </select>
+        </div>
+        <div id="attendingFields" style="display: none;">
+            <div class="form-group">
+                <label>Plus One;</label>
+                <select id="plusOne">
+                    <option value="">Θα εχετε plus one;</option>
+                    <option value="yes">Ναι</option>
+                    <option value="no">Όχι</option>
+                </select>
+            </div>
+            <div class="form-group" id="plusOneNameGroup" style="display: none;">
+                <input type="text" id="plusOneName" placeholder="Όνομα Plus One">
+            </div>
+            <div class="form-group">
+                <label>Παιδιά</label>
+                <select id="kids">
+                    <option value="">Θα φέρετε παιδιά;</option>
+                    <option value="yes">Ναι</option>
+                    <option value="no">Όχι</option>
+                </select>
+            </div>
+            <div class="form-group" id="kidsNumberGroup" style="display: none;">
+                <input type="number" id="kidsNumber" placeholder="Number of Kids">
+            </div>
+        </div>
+        <button type="submit" class="rsvp-button">Send RSVP</button>
+        <p id="formMessage" class="form-message"></p>
+    </form>
 </section>
 
 <section class="info-section" id="photos">
@@ -94,10 +128,7 @@
 <section class="travel-section" id="travel">
     <h2 class="section-title">Πως να έρθετε</h2>
     <p class="section-subtitle">Οδηγιες για τις τοποθεσιες του Γαμου</p>
-
     <div class="travel-destinations">
-
-        <!-- Church -->
         <div class="destination">
             <img src="assets/images/church.jpg" alt="Church Location" class="destination-img">
             <h3>Εκκλησια</h3>
@@ -111,22 +142,19 @@
                 <p>Scan for directions</p>
             </div>
         </div>
-
-        <!-- Event -->
         <div class="destination">
             <img src="assets/images/event.jpg" alt="Event Location" class="destination-img">
             <h3>Κτημα εκδηλωσης</h3>
             <p>
                 <a href="https://maps.app.goo.gl/YAg66Pqd9nAz5nvk9" target="_blank" rel="noopener noreferrer">
                     Κτήμα Ποταμίδα, Ρεματιάς, Πύριζα Γυαλού, Παλλήνη 19004
-                </a>    
+                </a>
             </p>
             <div class="qr-code">
                 <img src="assets/qrcodes/event-qr.png" alt="Event QR Code">
                 <p>Scan for directions</p>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -151,60 +179,14 @@
     </div>
 </section>
 
-<section class="rsvp-section" id="rsvp">
-    <h2 class="section-title">RSVP</h2>
-    <p class="section-subtitle">Παρακαλούμε στειλτε μας την απαντηση σας μεχρι τις 10 Αυγούστου 2026</p>
-
-    <form id="rsvpForm" class="rsvp-form">
-
-        <div class="form-group">
-            <input type="text" name="name" placeholder="Πλήρες Όνομα" required>
+<section class="info-section" id="photo-collage">
+    <h2 class="section-title">Photo Collage</h2>
+    <p class="section-subtitle">Κάντε scroll για να δείτε τις αναμνήσεις να "πέφτουν" η μία πάνω στην άλλη.</p>
+    <div class="collage-scroll-area" id="collageScrollArea">
+        <div class="collage-sticky">
+            <div class="collage-stack" id="collageStack"></div>
         </div>
-    
-        <div class="form-group">
-            <select name="attendance" id="attendance" required>
-                <option value="">Θα παρευρεθείτε;</option>
-                <option value="yes">Θα παραστώ με χαρά</option>
-                <option value="no">Δυστυχώς δεν θα τα καταφερω</option>
-            </select>
-        </div>
-    
-        <!-- Appears only if attending -->
-        <div id="attendingFields" style="display: none;">
-    
-            <div class="form-group">
-                <label>Plus One;</label>
-                <select id="plusOne">
-                    <option value="">Θα εχετε plus one;</option>
-                    <option value="yes">Ναι</option>
-                    <option value="no">Όχι</option>
-                </select>
-            </div>
-    
-            <div class="form-group" id="plusOneNameGroup" style="display: none;">
-                <input type="text" id="plusOneName" placeholder="Όνομα Plus One">
-            </div>
-    
-            <div class="form-group">
-                <label>Παιδιά</label>
-                <select id="kids">
-                    <option value="">Θα φέρετε παιδιά;</option>
-                    <option value="yes">Ναι</option>
-                    <option value="no">Όχι</option>
-                </select>
-            </div>
-    
-            <div class="form-group" id="kidsNumberGroup" style="display: none;">
-                <input type="number" id="kidsNumber" placeholder="Number of Kids">
-            </div>
-    
-        </div>
-    
-        <button type="submit" class="rsvp-button">Send RSVP</button>
-    
-        <p id="formMessage" class="form-message"></p>
-    
-    </form>
+    </div>
 </section>
 
 <footer class="site-footer">
