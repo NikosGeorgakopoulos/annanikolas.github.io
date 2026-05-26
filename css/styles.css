@@ -136,6 +136,40 @@ nav a:hover {
     position: relative;
 }
 
+/* Mobile: make hero image take most of the viewport width so PNG isn't tiny */
+@media (max-width: 700px) {
+    .hero-container {
+        width: 96vw;
+        max-width: none;
+        margin: 16px auto;
+        border-radius: 8px;
+    }
+    .hero-img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+/* Stronger mobile rule: ensure the hero fills small viewports (larger breakpoint) */
+@media (max-width: 900px) {
+    .hero-container {
+        width: 100vw !important;
+        max-width: none !important;
+        margin: 0 auto !important;
+        padding: 0;
+        border-radius: 0;
+    }
+    .hero-img {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        object-fit: cover;
+    }
+    /* allow the hero to stretch edge-to-edge on very small screens */
+    body, html { overflow-x: hidden; }
+}
+
 /* Details Section */
 .details {
     display: flex;
@@ -510,28 +544,33 @@ textarea {
 }
 
 
-/* Once Upon SVG header */
 .once-upon-header {
-    width: 100%;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     padding: 40px 0 0;
-    overflow: visible;
+    overflow: hidden;
 }
 
-.once-upon-svg {
-    width: min(95vw, 2000px);
+.once-upon-png {
+    /* increase default max so header reads larger on wider screens */
+    width: min(130vw, 2200px);
     height: auto;
     display: block;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
     .once-upon-header {
         padding: 20px 0 0;
-        overflow: hidden;
     }
-    .once-upon-svg {
-        width: 100vw;
+    .once-upon-png {
+        /* make header image even larger on small phones so lettering is prominent */
+        width: 225vw;
         max-width: none;
+        height: auto;
+        display: block;
     }
 }
