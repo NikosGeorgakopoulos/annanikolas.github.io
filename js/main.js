@@ -178,9 +178,64 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
         card.style.zIndex = String(index + 1);
         card.dataset.rotation = String(rotationPattern[index % rotationPattern.length]);
 
-        image.src = `assets/images/photo collage/${fileName}`;
+
         image.alt = "Photo collage memory";
         image.loading = "lazy";
+
+        // Detect image orientation when it loads and mark the card.
+        // Attach listeners before setting `src` so cached images don't miss the event.
+        const applyOrientation = () => {
+            try {
+                if (image.naturalWidth && image.naturalHeight) {
+                    const isPortrait = image.naturalHeight > image.naturalWidth;
+                    card.classList.add(isPortrait ? 'portrait' : 'landscape');
+                    image.classList.add(isPortrait ? 'portrait-img' : 'landscape-img');
+                    // Fit card to the image aspect ratio so photos keep their resolution
+                    // and we only show a small white border around them.
+                    try {
+                        const stackRect = collageStack.getBoundingClientRect();
+                        const maxW = stackRect.width - 12; // allow for border
+                        const maxH = stackRect.height - 12;
+                        const imgW = image.naturalWidth;
+                        const imgH = image.naturalHeight;
+                        const imgRatio = imgW / imgH;
+
+                        let targetW = maxW;
+                        let targetH = Math.round(targetW / imgRatio);
+                        if (targetH > maxH) {
+                            targetH = maxH;
+                            targetW = Math.round(targetH * imgRatio);
+                        }
+
+                        // center the card inside the stack
+                        const left = Math.round((stackRect.width - targetW) / 2);
+                        const top = Math.round((stackRect.height - targetH) / 2);
+
+                        card.style.width = `${targetW}px`;
+                        card.style.height = `${targetH}px`;
+                        card.style.left = `${left}px`;
+                        card.style.top = `${top}px`;
+                    } catch (err) {
+                        // if something fails, ignore sizing and leave card full-size
+                        console.warn('collage sizing failed', err);
+                    }
+                }
+            } catch (err) {
+                console.warn('Collage image orientation detect failed', err);
+            }
+        };
+
+        image.addEventListener('load', applyOrientation);
+        image.addEventListener('error', () => {
+            // if image fails, mark as landscape to avoid weird sizing
+            card.classList.add('landscape');
+        });
+
+        // Now set the source (after listeners are attached)
+        image.src = `assets/images/photo collage/${fileName}`;
+
+        // If image is already cached and complete, run orientation immediately
+        if (image.complete) applyOrientation();
 
         card.appendChild(image);
         collageStack.appendChild(card);
