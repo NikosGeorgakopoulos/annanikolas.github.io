@@ -95,6 +95,21 @@ h1 {
     margin-top: 6px;
 }
 
+/* Make the countdown more prominent */
+#countdown {
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #5e4a3f;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    #countdown {
+        font-size: 16px;
+    }
+}
+
 /* Navigation */
 nav {
     margin: 30px 0;
