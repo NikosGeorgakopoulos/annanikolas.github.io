@@ -191,38 +191,46 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
     const perCardScrollVh = 34;
     collageScrollArea.style.height = `${Math.max(100, collageCards.length * perCardScrollVh + 120)}vh`;
 
-    function updateCollageStack() {
-        const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
-        const passed = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
-        const progress = passed / totalScrollable;
-        const step = progress * (collageCards.length + 0.8);
+function updateCollageStack() {
+    const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
+    const passed = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
+    const progress = passed / totalScrollable;
+    const step = progress * (collageCards.length + 0.8);
 
-        collageCards.forEach((card, index) => {
-            const rotation = Number(card.dataset.rotation || "0");
-            const localProgress = step - index;
+    collageCards.forEach((card, index) => {
+        const rotation = Number(card.dataset.rotation || "0");
+        const localProgress = step - index;
 
-            if (localProgress <= 0) {
-                card.style.opacity = "0";
-                card.style.transform = `translateY(-130px) scale(0.92) rotate(${rotation * 0.2}deg)`;
-                return;
-            }
+        if (localProgress <= 0) {
+            // Hide completely above — not visible yet
+            card.style.visibility = "hidden";
+            card.style.transform = `translateY(-220px) scale(0.9) rotate(${rotation * 0.4}deg) translateZ(0)`;
+            return;
+        }
 
-            if (localProgress < 1) {
-                const drop = 1 - localProgress;
-                const y = drop * 130 + index * 1.6;
-                const scale = 0.92 + localProgress * 0.08;
-                const currentRotation = rotation * (0.35 + drop * 0.65);
+        if (localProgress < 1) {
+            // Card is falling
+            // Ease-out with a small bounce past 0 then back
+            card.style.visibility = "visible";
+            const t = localProgress;
+            const bounce = t < 0.75
+                ? 1 - Math.pow(1 - t / 0.75, 3)          // ease-out cubic drop
+                : 1 + Math.sin((t - 0.75) / 0.25 * Math.PI) * 0.06; // tiny overshoot
 
-                card.style.opacity = String(Math.min(1, localProgress * 1.4));
-                card.style.transform = `translateY(${y}px) scale(${scale}) rotate(${currentRotation}deg)`;
-                return;
-            }
+            const y = (1 - bounce) * 220 + index * 1.6;
+            const scale = 0.9 + bounce * 0.1;
+            const currentRotation = rotation * (0.4 + (1 - bounce) * 0.6);
 
-            card.style.opacity = "1";
-            card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg)`;
-        });
-    }
+            card.style.visibility = "visible";
+            card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg) translateZ(0)`;
+            return;
+        }
 
+        // Card has landed
+        card.style.opacity = "1";
+        card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg) translateZ(0)`;
+    });
+}
     // With this:
     let collageRafPending = false;
     window.addEventListener("scroll", () => {

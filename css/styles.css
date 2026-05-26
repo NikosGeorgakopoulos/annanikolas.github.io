@@ -330,6 +330,9 @@ textarea {
     opacity: 0;
     transform: translateY(-130px) scale(0.92) rotate(0deg);
     will-change: transform, opacity;
+    opacity: 1;
+    visibility: hidden;
+    transform: translateY(-220px) scale(0.9) rotate(0deg) translateZ(0);
 }
 
 .collage-card img {
