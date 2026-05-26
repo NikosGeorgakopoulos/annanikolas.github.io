@@ -449,7 +449,7 @@ textarea {
 }
 
 #dress-code {
-    background-color: #2E2B27;
+    background-color: #ffffff;
     -webkit-mask-image: linear-gradient(to right,
         rgba(0,0,0,0) 0%,
         rgba(0,0,0,0) 15%,
@@ -476,11 +476,11 @@ textarea {
 #dress-code .section-subtitle,
 #dress-code .info-card h3,
 #dress-code .info-card p {
-    color: #e8e2da;
+    color: #000000;
 }
 
 #dress-code .info-card {
-    background: #3d3830;
+    background: #E5D9D3;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
