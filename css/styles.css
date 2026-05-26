@@ -49,9 +49,6 @@
     color: #af8265;
 }
 
-
-
-
 /* Base */
 html {
     scroll-behavior: smooth;
@@ -61,7 +58,7 @@ body {
     margin: 0;
     font-family: 'Caudex Regular', sans-serif;
     color: #333;
-    background: #d4beb3;
+    background: #e5d9d3;
     position: relative;
 }
 
@@ -519,10 +516,22 @@ textarea {
     display: flex;
     justify-content: center;
     padding: 40px 0 0;
+    overflow: visible;
 }
 
 .once-upon-svg {
-    width: min(95vw, 1100px);
+    width: min(95vw, 2000px);
     height: auto;
     display: block;
+}
+
+@media (max-width: 600px) {
+    .once-upon-header {
+        padding: 20px 0 0;
+        overflow: hidden;
+    }
+    .once-upon-svg {
+        width: 100vw;
+        max-width: none;
+    }
 }
