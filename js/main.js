@@ -169,134 +169,141 @@ const collageStack = document.getElementById("collageStack");
 const collageScrollArea = document.getElementById("collageScrollArea");
 
 if (collageStack && collageScrollArea && collageFiles.length > 0) {
+    const collageSticky   = collageScrollArea.querySelector(".collage-sticky");
     const rotationPattern = [-8, 6, -5, 7, -4, 5, -7, 4, -6, 8, -3, 3];
+
+    // ── Helper: fit a card to its image's aspect ratio inside the stack ──────
+    function sizeCard(card, img) {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        try {
+            const rect = collageStack.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const ratio = img.naturalWidth / img.naturalHeight;
+            const maxW  = rect.width  - 12;
+            const maxH  = rect.height - 12;
+            let w = maxW;
+            let h = Math.round(w / ratio);
+            if (h > maxH) { h = maxH; w = Math.round(h * ratio); }
+            card.style.width  = `${w}px`;
+            card.style.height = `${h}px`;
+            card.style.left   = `${Math.round((rect.width  - w) / 2)}px`;
+            card.style.top    = `${Math.round((rect.height - h) / 2)}px`;
+        } catch (e) { console.warn("collage sizing failed", e); }
+    }
+
+    // ── Build card elements ──────────────────────────────────────────────────
     const collageCards = collageFiles.map((fileName, index) => {
-        const card = document.createElement("div");
+        const card  = document.createElement("div");
         const image = document.createElement("img");
 
-        card.className = "collage-card";
-        card.style.zIndex = String(index + 1);
+        card.className        = "collage-card";
+        card.style.zIndex     = String(index + 1);
         card.dataset.rotation = String(rotationPattern[index % rotationPattern.length]);
 
-
-        image.alt = "Photo collage memory";
+        image.alt     = "Photo collage memory";
         image.loading = "lazy";
 
-        // Detect image orientation when it loads and mark the card.
-        // Attach listeners before setting `src` so cached images don't miss the event.
         const applyOrientation = () => {
+            if (!image.naturalWidth || !image.naturalHeight) return;
             try {
-                if (image.naturalWidth && image.naturalHeight) {
-                    const isPortrait = image.naturalHeight > image.naturalWidth;
-                    card.classList.add(isPortrait ? 'portrait' : 'landscape');
-                    image.classList.add(isPortrait ? 'portrait-img' : 'landscape-img');
-                    // Fit card to the image aspect ratio so photos keep their resolution
-                    // and we only show a small white border around them.
-                    try {
-                        const stackRect = collageStack.getBoundingClientRect();
-                        const maxW = stackRect.width - 12; // allow for border
-                        const maxH = stackRect.height - 12;
-                        const imgW = image.naturalWidth;
-                        const imgH = image.naturalHeight;
-                        const imgRatio = imgW / imgH;
-
-                        let targetW = maxW;
-                        let targetH = Math.round(targetW / imgRatio);
-                        if (targetH > maxH) {
-                            targetH = maxH;
-                            targetW = Math.round(targetH * imgRatio);
-                        }
-
-                        // center the card inside the stack
-                        const left = Math.round((stackRect.width - targetW) / 2);
-                        const top = Math.round((stackRect.height - targetH) / 2);
-
-                        card.style.width = `${targetW}px`;
-                        card.style.height = `${targetH}px`;
-                        card.style.left = `${left}px`;
-                        card.style.top = `${top}px`;
-                    } catch (err) {
-                        // if something fails, ignore sizing and leave card full-size
-                        console.warn('collage sizing failed', err);
-                    }
-                }
-            } catch (err) {
-                console.warn('Collage image orientation detect failed', err);
-            }
+                const isPortrait = image.naturalHeight > image.naturalWidth;
+                card.classList.add(isPortrait ? "portrait" : "landscape");
+                image.classList.add(isPortrait ? "portrait-img" : "landscape-img");
+                sizeCard(card, image);
+            } catch (e) { console.warn("collage orientation failed", e); }
         };
 
-        image.addEventListener('load', applyOrientation);
-        image.addEventListener('error', () => {
-            // if image fails, mark as landscape to avoid weird sizing
-            card.classList.add('landscape');
-        });
-
-        // Now set the source (after listeners are attached)
+        image.addEventListener("load",  applyOrientation);
+        image.addEventListener("error", () => card.classList.add("landscape"));
         image.src = `assets/images/photo collage/${fileName}`;
-
-        // If image is already cached and complete, run orientation immediately
         if (image.complete) applyOrientation();
 
         card.appendChild(image);
         collageStack.appendChild(card);
-
         return card;
     });
 
-    const perCardScrollVh = 34;
-    collageScrollArea.style.height = `${Math.max(100, collageCards.length * perCardScrollVh + 120)}vh`;
+    // ── Layout: all heights in real pixels, never vh ─────────────────────────
+    // window.innerHeight = actual visible area on every device.
+    // CSS vh on iOS Safari = large viewport (address bar hidden), which is
+    // bigger than what the user actually sees, making everything feel too tall.
+    function refreshLayout() {
+        const vh     = window.innerHeight;
+        const vw     = window.innerWidth;
+        const mobile = vw <= 768;
 
-function updateCollageStack() {
-    const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
-    const passed = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
-    const progress = passed / totalScrollable;
-    const step = progress * (collageCards.length + 0.8);
-
-    collageCards.forEach((card, index) => {
-        const rotation = Number(card.dataset.rotation || "0");
-        const localProgress = step - index;
-
-        if (localProgress <= 0) {
-            // Hide completely above — not visible yet
-            card.style.visibility = "hidden";
-            card.style.transform = `translateY(-220px) scale(0.9) rotate(${rotation * 0.4}deg) translateZ(0)`;
-            return;
+        if (collageSticky) {
+            // top threshold and height both in real px so sticky fires at the
+            // correct visual position on iOS Safari
+            collageSticky.style.top    = `${Math.round(vh * 0.12)}px`;
+            collageSticky.style.height = `${Math.round(vh * 0.76)}px`;
         }
 
-        if (localProgress < 1) {
-            // Card is falling
-            // Ease-out with a small bounce past 0 then back
-            card.style.visibility = "visible";
-            const t = localProgress;
-            const bounce = t < 0.75
-                ? 1 - Math.pow(1 - t / 0.75, 3)          // ease-out cubic drop
-                : 1 + Math.sin((t - 0.75) / 0.25 * Math.PI) * 0.06; // tiny overshoot
+        // Stack fills most of the sticky panel, capped for readability
+        const stackW = Math.min(Math.round(vw * (mobile ? 0.88 : 0.78)), 560);
+        const stackH = Math.min(Math.round(vh * 0.70), mobile ? 520 : 720);
+        collageStack.style.width  = `${stackW}px`;
+        collageStack.style.height = `${stackH}px`;
 
-            const y = (1 - bounce) * 220 + index * 1.6;
-            const scale = 0.9 + bounce * 0.1;
-            const currentRotation = rotation * (0.4 + (1 - bounce) * 0.6);
+        // Mobile: 20% of screen per card → ~5 phone screens total for 27 photos
+        // Desktop: 34% of screen per card → same feel as before
+        const scrollPerCard = Math.round(vh * (mobile ? 0.20 : 0.34));
+        collageScrollArea.style.height = `${collageCards.length * scrollPerCard + vh}px`;
+
+        // Re-fit already-loaded images to the (possibly new) stack dimensions
+        collageCards.forEach(card => {
+            const img = card.querySelector("img");
+            if (img && img.complete && img.naturalWidth) sizeCard(card, img);
+        });
+    }
+
+    // ── Scroll-driven animation ──────────────────────────────────────────────
+    function updateCollageStack() {
+        const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
+        const scrolled        = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
+        const progress        = scrolled / totalScrollable;
+        const step            = progress * (collageCards.length + 0.8);
+
+        collageCards.forEach((card, index) => {
+            const rotation = Number(card.dataset.rotation || 0);
+            const localP   = step - index;
+
+            if (localP <= 0) {
+                card.style.visibility = "hidden";
+                card.style.transform  = `translateY(-220px) scale(0.9) rotate(${rotation * 0.4}deg) translateZ(0)`;
+                return;
+            }
 
             card.style.visibility = "visible";
+            card.style.opacity    = "1";
+
+            if (localP < 1) {
+                const t      = localP;
+                const bounce = t < 0.75
+                    ? 1 - Math.pow(1 - t / 0.75, 3)
+                    : 1 + Math.sin((t - 0.75) / 0.25 * Math.PI) * 0.06;
+                const y   = (1 - bounce) * 220;
+                const sc  = 0.9 + bounce * 0.1;
+                const rot = rotation * (0.4 + (1 - bounce) * 0.6);
+                card.style.transform = `translateY(${y + index * 1.6}px) scale(${sc}) rotate(${rot}deg) translateZ(0)`;
+                return;
+            }
+
             card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg) translateZ(0)`;
-            return;
-        }
+        });
+    }
 
-        // Card has landed
-        card.style.opacity = "1";
-        card.style.transform = `translateY(${index * 1.6}px) scale(1) rotate(${rotation}deg) translateZ(0)`;
-    });
-}
-    // With this:
-    let collageRafPending = false;
+    // ── Event wiring ─────────────────────────────────────────────────────────
+    let rafPending = false;
     window.addEventListener("scroll", () => {
-        if (!collageRafPending) {
-            collageRafPending = true;
-            requestAnimationFrame(() => {
-                updateCollageStack();
-                collageRafPending = false;
-            });
+        if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(() => { updateCollageStack(); rafPending = false; });
         }
     }, { passive: true });
-    window.addEventListener("resize", updateCollageStack);
+
+    window.addEventListener("resize", () => { refreshLayout(); updateCollageStack(); });
+
+    refreshLayout();
     updateCollageStack();
 }
