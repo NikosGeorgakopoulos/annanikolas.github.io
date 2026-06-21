@@ -163,6 +163,33 @@ function updateCountdown() {
 // Update immediately
 updateCountdown();
 
+// Lightbox for invite images
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxClose = document.getElementById("lightboxClose");
+
+document.querySelectorAll(".lightbox-trigger").forEach(img => {
+    img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    });
+});
+
+function closeLightbox() {
+    lightbox.style.display = "none";
+    document.body.style.overflow = "";
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+});
+
 const collageFiles = Array.isArray(window.COLLAGE_FILES) ? window.COLLAGE_FILES : [];
 
 const collageStack = document.getElementById("collageStack");
