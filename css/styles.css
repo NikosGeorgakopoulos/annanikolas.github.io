@@ -82,7 +82,12 @@
     color: #b96a36;
 }
 
-
+@font-face {
+    font-family: 'Bahnschrift Light SemiCondensed';
+    src: url('../assets/fonts/Bahnschrift Light SemiCondensed.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
 
 /* Base */
 html {
