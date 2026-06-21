@@ -60,7 +60,7 @@
     background: #b96a36;
     color: #fff !important;
     font-size: 18px;
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     padding: 14px 32px;
     border-radius: 8px;
     text-decoration: none;
@@ -82,12 +82,7 @@
     color: #b96a36;
 }
 
-@font-face {
-    font-family: 'Caudex Regular';
-    src: url('../assets/fonts/Caudex-Regular.ttf');
-    font-weight: 600;
-    color: #af8265;
-}
+
 
 /* Base */
 html {
@@ -96,7 +91,7 @@ html {
 
 body {
     margin: 0;
-    font-family: 'Caudex Regular', sans-serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     color: #333;
     background: #e5d9d3;
     position: relative;
@@ -114,7 +109,7 @@ body {
 
 /* Typography */
 .script {
-    font-family: 'Caudex Regular';
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 28px;
     color: #555;
     margin-bottom: 10px;
@@ -253,7 +248,7 @@ nav a:hover {
     border: none;
     padding: 14px 40px;
     font-size: 16px;
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     letter-spacing: 2px;
     cursor: pointer;
     border-radius: 6px;
@@ -278,7 +273,7 @@ nav a:hover {
 }
 
 .section-title {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     letter-spacing: 3px;
     font-size: 30px;
     margin-bottom: 12px;
@@ -306,7 +301,7 @@ textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
-    font-family: 'Caudex Regular', sans-serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 14px;
     background: white;
     box-sizing: border-box;
@@ -327,7 +322,7 @@ textarea {
     width: 100%;
     box-sizing: border-box;
     font-size: 14px;
-    font-family: 'Caudex Regular', sans-serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
 }
 
 .rsvp-button:hover {
@@ -476,7 +471,7 @@ textarea {
 
 .info-card h3 {
     margin-top: 0;
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 20px;
 }
 
@@ -555,7 +550,7 @@ textarea {
 }
 
 .std-era-title {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 22px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -579,7 +574,7 @@ textarea {
 }
 
 .std-photo-label {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 16px;
     letter-spacing: 1px;
     color: #555;
@@ -596,7 +591,7 @@ textarea {
 }
 
 .std-plus-sign {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 80px;
     font-weight: 900;
     color: #b96a36;
@@ -639,13 +634,13 @@ textarea {
 }
 
 .travel-section .section-title {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 36px;
     margin-bottom: 10px;
 }
 
 .travel-section .section-subtitle {
-    font-family: 'Caudex Regular', sans-serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 16px;
     margin-bottom: 40px;
     color: #555;
@@ -675,13 +670,13 @@ textarea {
 }
 
 .destination h3 {
-    font-family: 'Caudex Regular', serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 22px;
     margin-bottom: 5px;
 }
 
 .destination p {
-    font-family: 'Caudex Regular', sans-serif;
+    font-family: 'Bahnschrift Light SemiCondensed', 'Bahnschrift', sans-serif;
     font-size: 14px;
     color: #555;
     margin-bottom: 15px;
