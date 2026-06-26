@@ -205,7 +205,10 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
         try {
             const rect = collageStack.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
-            const ratio = img.naturalWidth / img.naturalHeight;
+            // Use EXIF-corrected ratio stored by applyOrientation when available
+            const ratio = card.dataset.displayRatio
+                ? Number(card.dataset.displayRatio)
+                : img.naturalWidth / img.naturalHeight;
             const maxW  = rect.width  - 12;
             const maxH  = rect.height - 12;
             let w = maxW;
@@ -232,12 +235,24 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
 
         const applyOrientation = () => {
             if (!image.naturalWidth || !image.naturalHeight) return;
-            try {
-                const isPortrait = image.naturalHeight > image.naturalWidth;
-                card.classList.add(isPortrait ? "portrait" : "landscape");
-                image.classList.add(isPortrait ? "portrait-img" : "landscape-img");
-                sizeCard(card, image);
-            } catch (e) { console.warn("collage orientation failed", e); }
+            const applyWithDimensions = (w, h) => {
+                try {
+                    card.dataset.displayRatio = String(w / h);
+                    const isPortrait = h > w;
+                    card.classList.add(isPortrait ? "portrait" : "landscape");
+                    image.classList.add(isPortrait ? "portrait-img" : "landscape-img");
+                    sizeCard(card, image);
+                } catch (e) { console.warn("collage orientation failed", e); }
+            };
+            // createImageBitmap applies EXIF rotation, giving the true display dimensions.
+            // This fixes mobile photos stored landscape but displayed portrait (or vice-versa).
+            if (typeof createImageBitmap === "function") {
+                createImageBitmap(image)
+                    .then(bmp => { applyWithDimensions(bmp.width, bmp.height); bmp.close(); })
+                    .catch(() => applyWithDimensions(image.naturalWidth, image.naturalHeight));
+            } else {
+                applyWithDimensions(image.naturalWidth, image.naturalHeight);
+            }
         };
 
         image.addEventListener("load",  applyOrientation);
