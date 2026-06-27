@@ -239,19 +239,25 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
                 try {
                     card.dataset.displayRatio = String(w / h);
                     const isPortrait = h > w;
-                    card.classList.add(isPortrait ? "portrait" : "landscape");
-                    image.classList.add(isPortrait ? "portrait-img" : "landscape-img");
+                    // Use toggle so a second EXIF-corrected call can override without
+                    // leaving both portrait + landscape classes on the same card.
+                    card.classList.toggle("portrait",    isPortrait);
+                    card.classList.toggle("landscape",  !isPortrait);
+                    image.classList.toggle("portrait-img",   isPortrait);
+                    image.classList.toggle("landscape-img", !isPortrait);
                     sizeCard(card, image);
                 } catch (e) { console.warn("collage orientation failed", e); }
             };
+            // Size the card immediately with raw dimensions so it never flashes at
+            // full-stack size while the async createImageBitmap call is pending.
+            // This fixes the "cropped last image" on slow / in-app-browser WebViews.
+            applyWithDimensions(image.naturalWidth, image.naturalHeight);
             // createImageBitmap applies EXIF rotation, giving the true display dimensions.
             // This fixes mobile photos stored landscape but displayed portrait (or vice-versa).
             if (typeof createImageBitmap === "function") {
                 createImageBitmap(image)
                     .then(bmp => { applyWithDimensions(bmp.width, bmp.height); bmp.close(); })
-                    .catch(() => applyWithDimensions(image.naturalWidth, image.naturalHeight));
-            } else {
-                applyWithDimensions(image.naturalWidth, image.naturalHeight);
+                    .catch(() => {});
             }
         };
 
@@ -266,11 +272,12 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
     });
 
     // ── Layout: all heights in real pixels, never vh ─────────────────────────
-    // window.innerHeight = actual visible area on every device.
-    // CSS vh on iOS Safari = large viewport (address bar hidden), which is
-    // bigger than what the user actually sees, making everything feel too tall.
+    // window.visualViewport.height = actual visible area on every device,
+    // including in-app browsers (Messenger, Instagram) where the browser chrome
+    // ("Open in Safari" bar, bottom nav) overlays the WebView and makes
+    // window.innerHeight larger than what the user actually sees.
     function refreshLayout() {
-        const vh     = window.innerHeight;
+        const vh     = window.visualViewport?.height ?? window.innerHeight;
         const vw     = window.innerWidth;
         const mobile = vw <= 768;
 
@@ -301,7 +308,7 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
 
     // ── Scroll-driven animation ──────────────────────────────────────────────
     function updateCollageStack() {
-        const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - window.innerHeight);
+        const totalScrollable = Math.max(1, collageScrollArea.offsetHeight - (window.visualViewport?.height ?? window.innerHeight));
         const scrolled        = Math.min(Math.max(-collageScrollArea.getBoundingClientRect().top, 0), totalScrollable);
         const progress        = scrolled / totalScrollable;
         const step            = progress * (collageCards.length + 0.8);
@@ -345,6 +352,11 @@ if (collageStack && collageScrollArea && collageFiles.length > 0) {
     }, { passive: true });
 
     window.addEventListener("resize", () => { refreshLayout(); updateCollageStack(); });
+    // visualViewport fires when Messenger's "Open in" bar / soft keyboard changes
+    // the visible area without triggering a window resize event.
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", () => { refreshLayout(); updateCollageStack(); });
+    }
 
     refreshLayout();
     updateCollageStack();
